@@ -56,10 +56,14 @@ public class AccountRepositoryTest {
     }
     /*Los tres primeros tests petan por el bucle de llamadas a metodos del gson que provoca un StackOverflow, buscando por internet he visto que la solucion es aumentar el tamaño del stack
      en segun que errores o revisar los oneToMany que no provoquen un bucle infinito, lo he estado mirando pero no consigo arreglarlo */
+    /* EL problema veo que esta al convertir checking a una "String body" con el "gson.toJson", si hago el test con un ".content(String.valueof(checking) no entra en bucle pero
+     me lanza un error 415 unnsuported MediaType */
+    /* EL problema esta todo el rato en la creacion de el objeto a un gson, he intentado probar otras versiones de la dependency de gson bajando hasta la 2.8.9 que he visto que es la
+    * mas usada pero no he conseguido que no entre en bucle*/
     @Test
     void add_checking() throws Exception {
         AccountHolder accountHolder = new AccountHolder("Juan Lopez", passwordEncoder.encode("1234"), LocalDate.of(1995, 6, 23), new Address("Spain", "Barcelona", "Central Street"), null);
-        Checking checking = new Checking(BigDecimal.valueOf(1500), accountHolder, null, "1234abc", BigDecimal.valueOf(500), BigDecimal.valueOf(12));
+        Checking checking = new Checking(BigDecimal.valueOf(1500), accountHolder, null, "1234abc");
         String body = gson.toJson(checking);
         MvcResult mvcResult = mockMvc.perform(post("/Account/create-checking-account").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Juan Lopez"));
@@ -93,5 +97,5 @@ public class AccountRepositoryTest {
 
         assertTrue(mvcResult2.getResolvedException().getMessage().contains("The Account don't exist"));
     }
-//El resto de test que son algo mas complejos he de mirar como sacarlos una vez consiga arreglar que me hace petar los test
+//El resto de test que son algo mas complejos he de mirar como sacarlos una vez consiga arreglar lo que me hace petar los test
 }

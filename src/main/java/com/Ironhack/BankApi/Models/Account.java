@@ -29,6 +29,7 @@ public abstract class Account {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
+        setPenaltyFee(penaltyFee);
 
     }
 

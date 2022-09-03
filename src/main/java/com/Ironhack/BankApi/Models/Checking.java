@@ -18,12 +18,12 @@ public class Checking extends Account {
     public Checking() {
     }
 
-    public Checking( BigDecimal balance, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, BigDecimal minimumBalance, BigDecimal monthlyMaintenanceFee) {
+    public Checking( BigDecimal balance, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
-        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
         this.creationDate = LocalDate.now();
+        setMinimumBalance(minimumBalance);
+        setMonthlyMaintenanceFee(monthlyMaintenanceFee);
         this.status = Status.ACTIVE;
     }
 

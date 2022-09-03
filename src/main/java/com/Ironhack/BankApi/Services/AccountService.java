@@ -29,7 +29,7 @@ public class AccountService {
             AccountHolder accountHolder = accountHolderRepository.findById(id).get();
 
             if (Period.between(accountHolder.getDateOfBirth(), LocalDate.now()).getYears() > 24) {
-                Checking checking = new Checking(accountInfo.getBalance(), accountHolder, null, accountInfo.getSecretKey(), accountInfo.getMinimumBalance(), accountInfo.getMonthlyMaintenanceFee());
+                Checking checking = new Checking(accountInfo.getBalance(), accountHolder, null, accountInfo.getSecretKey());
                 return accountRepository.save(checking);
             }
             StudentChecking studentChecking = new StudentChecking(accountInfo.getBalance(), accountHolder, null, accountInfo.getSecretKey());

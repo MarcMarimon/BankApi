@@ -47,7 +47,8 @@ public class UserRepositoryTest {
         objectMapper.findAndRegisterModules();
 
     }
-    //Estos dos tambien entran en el bucle de llamadas a metodos por el Gson a pesar de que el third Party no tiene LocalDate y no da error ahi pero entra en bucle con los mismos metodos
+    /*Estos dos tambien entran en el bucle de llamadas a metodos por el Gson a pesar de que el third Party no tiene LocalDate y no da error ahi pero entra en bucle con los mismos metodos
+    * esto descarta que sea un problema con el LocalDateSerializer y el LocalDateDeserializer si no mas bien algun problema del GsonBuilder*/
     @Test
     void add_third_party() throws Exception {
         ThirdParty thirdParty = new ThirdParty("Pepe Gomez",passwordEncoder.encode("1234"),"123abc" );
