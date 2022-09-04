@@ -21,13 +21,13 @@ public class AccountHolder extends User{
             @AttributeOverride(name = "city",column = @Column(name="secondaryCity")),
             @AttributeOverride(name="street",column = @Column(name="secondaryStreet"))
     })
-    private Address secondaryAddress;
+    private  Address secondaryAddress;
     @OneToMany(mappedBy = "primaryOwner")
     @JsonIgnore
-    private List<Account> listAccount;
+    private  List<Account> listAccount;
     @OneToMany(mappedBy = "secondaryOwner")
     @JsonIgnore
-    private List<Account> listAccount2;
+    private  List<Account> listAccount2;
     public AccountHolder() {
     }
 

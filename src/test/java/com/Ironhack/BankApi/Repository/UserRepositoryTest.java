@@ -3,6 +3,7 @@ package com.Ironhack.BankApi.Repository;
 import com.Ironhack.BankApi.LocalDateDeserializer;
 import com.Ironhack.BankApi.LocalDateSerializer;
 import com.Ironhack.BankApi.Models.*;
+import com.Ironhack.BankApi.MyTypeAdapter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,7 +40,7 @@ public class UserRepositoryTest {
     GsonBuilder gsonBuilder=new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
             .registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
-    Gson gson = gsonBuilder.setPrettyPrinting().create();
+    Gson gson = gsonBuilder.registerTypeAdapter(User.class, new MyTypeAdapter<User>()).setPrettyPrinting().create();
 
     @BeforeEach
     void setUp() {
@@ -49,6 +50,7 @@ public class UserRepositoryTest {
     }
     /*Estos dos tambien entran en el bucle de llamadas a metodos por el Gson a pesar de que el third Party no tiene LocalDate y no da error ahi pero entra en bucle con los mismos metodos
     * esto descarta que sea un problema con el LocalDateSerializer y el LocalDateDeserializer si no mas bien algun problema del GsonBuilder*/
+    /*Con la clase MyTypeAdapter y añadiendole el .registerTypeAdapter funcionan porfin estos tests sin entrar en bucle*/
     @Test
     void add_third_party() throws Exception {
         ThirdParty thirdParty = new ThirdParty("Pepe Gomez",passwordEncoder.encode("1234"),"123abc" );

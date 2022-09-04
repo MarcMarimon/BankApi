@@ -28,6 +28,7 @@ public class AccountController {
     public Account createSavingAccount(@RequestBody Savings accountInfo, @RequestParam Long accountHolderId ){
         return accountService.createSavingsAccount(accountInfo,accountHolderId);
     }
+
     @PostMapping("/Account/create-credit-card")
     @ResponseStatus(HttpStatus.CREATED)
     public Account createCreditCard(@RequestBody CreditCard cardInfo,@RequestParam Long accountHolderId){
